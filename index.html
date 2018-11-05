@@ -1,0 +1,41 @@
+<html>
+<head>
+
+<script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyDDcSx3qqO5V2q3P4yY1-fCHvUif5AAm6E",
+    authDomain: "names-23ca3.firebaseapp.com",
+    databaseURL: "https://names-23ca3.firebaseio.com",
+    projectId: "names-23ca3",
+    storageBucket: "",
+    messagingSenderId: "527861131913"
+  };
+  firebase.initializeApp(config);
+</script>
+<title>Enter Email Addresses</title>
+</head>
+<body>
+<br><br>
+<div id="content">
+<input id="name" placeholder="Enter your Full Name"/><br><br>
+<input id="email" placeholder="Enter your Email"/><br><br>
+<button onclick="Send()">Submit!</button>
+</div>
+<script>
+function Send() {
+    var postData = {
+        name: document.getElementById("name").value, 
+        email: document.getElementById("email").value, 
+    };
+    var newPostKey = firebase.database().ref('data/').child('Trainees').push().key;
+    var updates = {};
+    updates['/Trainees/' + newPostKey] = postData;
+    firebase.database().ref('data/').update(updates);
+
+    document.getElementById("content").innerHTML = "Thank you for submitting your details"
+}
+</script>
+</body>
+</html>
